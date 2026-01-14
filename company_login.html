@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Company Login | Inspire Nest Admin</title>
+    <link rel="stylesheet" href="css/admin-common.css">
+    <style>
+        body {
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(160deg, var(--color-navy-deep) 0%, var(--color-navy) 100%);
+            min-height: 100vh;
+        }
+
+        .login-card {
+            background: var(--color-white);
+            padding: 3rem;
+            width: 100%;
+            max-width: 450px;
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--color-gold);
+            text-align: center;
+        }
+
+        .login-header img {
+            height: 60px;
+            margin-bottom: 2rem;
+        }
+
+        .login-header h1 {
+            font-family: var(--font-display);
+            font-size: 2.2rem;
+            color: var(--color-navy-deep);
+            margin-bottom: 0.5rem;
+        }
+
+        .login-header p {
+            color: var(--color-gold-dark);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            margin-bottom: 2rem;
+        }
+
+        .error-msg {
+            background: #fee2e2;
+            color: #dc2626;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+            display: none;
+        }
+    </style>
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+</head>
+
+<body>
+    <div class="login-card">
+        <div class="login-header">
+            <img src="../logo.png" alt="Inspire Nest">
+            <h1>Corporate Portal</h1>
+            <p>Company Partner Login</p>
+        </div>
+
+        <div id="errorMsg" class="error-msg"></div>
+
+        <form id="loginForm">
+            <div class="form-group" style="text-align: left;">
+                <label>Corporate Email</label>
+                <input type="email" id="email" class="form-control" placeholder="partner@company.com" required>
+            </div>
+            <div class="form-group" style="text-align: left;">
+                <label>Access Key / Password</label>
+                <input type="password" id="password" class="form-control" placeholder="••••••••" required>
+            </div>
+            <button type="submit" class="btn btn-gold" style="width: 100%; margin-top: 1rem;">Access Dashboard</button>
+        </form>
+
+        <div style="margin-top: 2rem; font-size: 0.85rem; color: var(--color-charcoal-light);">
+            Interested in joining? <a href="../corporate.html"
+                style="color: var(--color-gold); font-weight: 600;">Contact Us</a>
+        </div>
+    </div>
+
+    <script src="js/supabase-client.js"></script>
+    <script src="js/data-service.js"></script>
+    <script src="js/login.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            LoginApp.init('company');
+        });
+    </script>
+</body>
+
+</html>

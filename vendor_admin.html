@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vendor Admin | Inspire Nest</title>
+    <link rel="stylesheet" href="css/admin-common.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+</head>
+
+<body>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <img src="../logo.png" alt="Inspire Nest" class="sidebar-logo">
+            <div class="sidebar-title">Vendor</div>
+        </div>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="#" class="nav-link active" data-target="dashSection">
+                    <i class="fas fa-home"></i> My Shop
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link" data-target="productsSection">
+                    <i class="fas fa-gift"></i> My Products
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link" data-target="settingsSection">
+                    <i class="fas fa-cog"></i> Shop Settings
+                </a>
+            </li>
+        </ul>
+        <div class="sidebar-footer">
+            <a href="#" class="logout-btn" onclick="AdminCore.handleLogout('vendor')">
+                <i class="fas fa-sign-out-alt"></i> Sign Out
+            </a>
+        </div>
+    </aside>
+
+    <main class="main-wrapper">
+        <header class="top-bar">
+            <div class="bar-left">
+                <h1 id="pageTitle">Vendor Dashboard</h1>
+            </div>
+            <div class="bar-right">
+                <div class="user-info">
+                    <span>Artisan Partner</span>
+                    <div class="user-avatar">AP</div>
+                </div>
+            </div>
+        </header>
+
+        <div class="content-area">
+            <!-- Dashboard -->
+            <section id="dashSection" class="admin-section">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-info">
+                            <h3>Live Products</h3>
+                            <div class="value">0</div>
+                        </div>
+                        <i class="fas fa-check-circle stat-icon"></i>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-info">
+                            <h3>Total Sales</h3>
+                            <div class="value">₹0</div>
+                        </div>
+                        <i class="fas fa-chart-bar stat-icon"></i>
+                    </div>
+                </div>
+
+                <div class="section-card">
+                    <div class="section-header">
+                        <h2>Sales Overview</h2>
+                    </div>
+                    <div style="padding: 2rem; text-align: center;">
+                        <img src="https://via.placeholder.com/600x200?text=Sales+Chart+Coming+Soon"
+                            style="width:100%; max-width:600px; opacity: 0.1;">
+                        <p style="margin-top: 1rem; color: var(--color-charcoal-light);">No sales data available yet.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Products -->
+            <section id="productsSection" class="admin-section" style="display:none;">
+                <div class="section-header">
+                    <h2>My Product Listings</h2>
+                    <button class="btn btn-gold" onclick="AdminCore.openModal('addProdModal')">+ Submit New
+                        Product</button>
+                </div>
+                <div class="section-card">
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Image</th>
+                                    <th>Title</th>
+                                    <th>Price</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td colspan="4" style="text-align: center; padding: 2rem;">No products submitted
+                                        yet.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Settings -->
+            <section id="settingsSection" class="admin-section" style="display:none;">
+                <div class="section-card">
+                    <div class="section-header">
+                        <h2>Shop Settings</h2>
+                        <button class="btn btn-gold">Save Settings</button>
+                    </div>
+                    <div style="padding: 2rem;">
+                        <div class="form-group">
+                            <label>Shop Name</label>
+                            <input type="text" class="form-control" value="Artisan Crafts India">
+                        </div>
+                        <div class="form-group">
+                            <label>Description</label>
+                            <textarea class="form-control"
+                                rows="3">Handmade gifts crafted with love in rural India.</textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Payout Account (UPI)</label>
+                            <input type="text" class="form-control" placeholder="example@upi">
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Simple Add Prod Modal for Vendor -->
+    <div class="modal-overlay" id="addProdModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Product Submission</h2>
+            </div>
+            <form id="submissionForm">
+                <div class="form-group">
+                    <label>Product Title</label>
+                    <input type="text" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label>Price Claimed (INR)</label>
+                    <input type="number" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea class="form-control" rows="3"></textarea>
+                </div>
+                <div style="display: flex; gap: 1rem;">
+                    <button type="submit" class="btn btn-gold">Submit for Review</button>
+                    <button type="button" class="btn btn-navy"
+                        onclick="AdminCore.closeModal('addProdModal')">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/supabase-client.js"></script>
+    <script src="js/data-service.js"></script>
+    <script src="js/admin-core.js"></script>
+    <script>
+        AdminCore.onReady = () => {
+            AdminCore.checkAuth('vendor');
+        };
+
+        AdminCore.onSectionSwitch = (id) => {
+            const titles = {
+                dashSection: 'Vendor Dashboard',
+                productsSection: 'My Catalog',
+                settingsSection: 'Shop Settings'
+            };
+            document.getElementById('pageTitle').textContent = titles[id];
+        };
+
+        AdminCore.init();
+
+        document.getElementById('submissionForm').onsubmit = (e) => {
+            e.preventDefault();
+            AdminCore.showToast('Product submitted for admin approval');
+            AdminCore.closeModal('addProdModal');
+        };
+    </script>
+</body>
+
+</html>

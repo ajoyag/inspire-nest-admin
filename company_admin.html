@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Company Admin | Inspire Nest</title>
+    <link rel="stylesheet" href="css/admin-common.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+</head>
+
+<body>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <img src="../logo.png" alt="Inspire Nest" class="sidebar-logo">
+            <div class="sidebar-title">Company</div>
+        </div>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="#" class="nav-link active" data-target="dashSection">
+                    <i class="fas fa-chart-line"></i> Dashboard
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link" data-target="profileSection">
+                    <i class="fas fa-building"></i> Company Profile
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link" data-target="ordersSection">
+                    <i class="fas fa-shopping-bag"></i> Our Orders
+                </a>
+            </li>
+        </ul>
+        <div class="sidebar-footer">
+            <a href="#" class="logout-btn" onclick="AdminCore.handleLogout('vendor')">
+                <i class="fas fa-sign-out-alt"></i> Sign Out
+            </a>
+        </div>
+    </aside>
+
+    <main class="main-wrapper">
+        <header class="top-bar">
+            <div class="bar-left">
+                <h1 id="pageTitle">Company Dashboard</h1>
+            </div>
+            <div class="bar-right">
+                <div class="user-info">
+                    <span>Corporate Client</span>
+                    <div class="user-avatar">CC</div>
+                </div>
+            </div>
+        </header>
+
+        <div class="content-area">
+            <!-- Dashboard -->
+            <section id="dashSection" class="admin-section">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-info">
+                            <h3>Active Orders</h3>
+                            <div class="value">0</div>
+                        </div>
+                        <i class="fas fa-clock stat-icon"></i>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-info">
+                            <h3>Total Spend</h3>
+                            <div class="value">₹0</div>
+                        </div>
+                        <i class="fas fa-wallet stat-icon"></i>
+                    </div>
+                </div>
+
+                <div class="section-card">
+                    <div class="section-header">
+                        <h2>Order Summary</h2>
+                    </div>
+                    <div style="padding: 2rem; text-align: center; color: var(--color-charcoal-light);">
+                        No orders recorded yet for your account.
+                    </div>
+                </div>
+            </section>
+
+            <!-- Profile Section -->
+            <section id="profileSection" class="admin-section" style="display:none;">
+                <div class="section-card">
+                    <div class="section-header">
+                        <h2>Business Details</h2>
+                        <button class="btn btn-gold" onclick="saveProfile()">Update Profile</button>
+                    </div>
+                    <div style="padding: 2rem;">
+                        <form id="profileForm">
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                                <div class="form-group">
+                                    <label>Company Name</label>
+                                    <input type="text" class="form-control" value="Demo Corporation">
+                                </div>
+                                <div class="form-group">
+                                    <label>GST Number</label>
+                                    <input type="text" class="form-control" placeholder="Optional">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Primary Contact Email</label>
+                                <input type="email" class="form-control" value="contact@democorp.com">
+                            </div>
+                            <div class="form-group">
+                                <label>Billing Address</label>
+                                <textarea class="form-control" rows="4">123 Corporate Park, Bangalore, India</textarea>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Orders Section -->
+            <section id="ordersSection" class="admin-section" style="display:none;">
+                <div class="section-card">
+                    <div class="section-header">
+                        <h2>Recent History</h2>
+                    </div>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Order ID</th>
+                                    <th>Date</th>
+                                    <th>Amount</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td colspan="4" style="text-align: center; padding: 2rem;">Loading details...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <script src="js/supabase-client.js"></script>
+    <script src="js/data-service.js"></script>
+    <script src="js/admin-core.js"></script>
+    <script>
+        AdminCore.onReady = () => {
+            AdminCore.checkAuth('company');
+        };
+
+        AdminCore.onSectionSwitch = (id) => {
+            const titles = {
+                dashSection: 'Company Dashboard',
+                profileSection: 'Edit Business Profile',
+                ordersSection: 'Order History & Tracking'
+            };
+            document.getElementById('pageTitle').textContent = titles[id];
+        };
+
+        function saveProfile() {
+            AdminCore.showToast('Profile Updated Successfully');
+        }
+
+        AdminCore.init();
+    </script>
+</body>
+
+</html>
